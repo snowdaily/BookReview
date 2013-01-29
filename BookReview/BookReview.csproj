@@ -354,11 +354,11 @@
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resource</CustomToolNamespace>
     </EmbeddedResource>
-    <Content Include="App_LocalResources\Resource.zh-TW.resx">
+    <EmbeddedResource Include="App_LocalResources\Resource.zh-TW.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.zh-TW.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resource</CustomToolNamespace>
-    </Content>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
