@@ -13,7 +13,8 @@
     @RenderSection("head", required: false)
 </head>
 <body>
-    <header>
+    <div id="wrap">
+        @*<header>
         <div class="content-wrapper">
             <h3>@Resource.Resource.Title</h3>
             <div class="float-left">
@@ -32,12 +33,62 @@
                 </nav>
             </div>
         </div>
-    </header>
-    <div id="body">
+    </header>*@
+
+        <div id="header">
+            <div id="header_logo" class="png_bg">
+                <a href="http://www.anobii.com">aNobii</a>
+            </div>
+
+            <div id="login" class="clearfix">
+                <div id="login_anobii" class="png_bg">
+                    <a href="https://www.anobii.com/login">登錄</a>
+                    | 
+                    <a href="https://www.anobii.com/sign_up">註冊帳號</a>
+                </div>
+
+                <div id="login_facebook" class="png_bg"></div>
+
+            </div>
+
+            <script type="text/javascript">
+                $j(document).ready(function () {
+                    $j(window).bind('facebook.user.session', user);
+
+                    function user() {
+                        if (FBButtonClick) {
+                            if ($j.facebook.user.uid != '') {
+                                $j.ajax({
+                                    url: '/NewaNobii/aNobiiHome/live/account/facebook-connect',
+                                    success: function (data) {
+                                        if (data == '1') {
+                                            location.href = '/home';
+                                        } else {
+                                            location.href = '/sign_up';
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    $j.facebook();
+                    $j('#login_facebook').facebook();
+                    $j('#login_facebook').facebook('show');
+                });
+
+            </script>
+
+            <div id="tagline">
+                <h2 id="tagline_title">Together we find better books</h2>
+            </div>
+
+        </div>
+        @*<div id="body">
         @RenderSection("featured", required: false)
-        <section class="content-wrapper main-content clear-fix">
-            @RenderBody()
-        </section>
+        <section class="content-wrapper main-content clear-fix">*@
+        @RenderBody()
+        @*</section>
     </div>
     <footer>
         <div class="content-wrapper">
@@ -45,11 +96,72 @@
                 <p>&copy; @DateTime.Now.Year - 我的 ASP.NET MVC 應用程式</p>
             </div>
         </div>
-    </footer>
+    </footer>*@
 
-    @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/knockout-2.1.0.js"></script>
-    @RenderSection("scripts", required: false)
+        <div id="footer">
+            <ul id="footer_links">
+                <li class="footer_item">
+                    <a href="http://twitter.com/anobii" id="footer_twitter">Twitter</a>
+                </li>
+                <li class="footer_item">
+                    <a href="http://www.facebook.com/aNobii" id="footer_facebook">Facebook</a>
+                </li>
+                <li class="footer_item">
+                    <a href="http://www.anobii.com/about">關於</a>
+                </li>
+                <li class="footer_item">
+                    <a href="http://www.anobii.com/translate_home">翻譯</a>
+                </li>
+                <li class="footer_item">
+                    <a href="http://www.anobii.com/api_home">開發者</a>
+                </li>
+                <li class="footer_item">
+                    <a href="http://blog.anobii.com/">Blog</a>
+                </li>
+                <li class="footer_item">
+                    <a href="http://www.anobii.com/help">說明</a>
+                </li>
+                <li class="footer_item">
+                    <a href="/terms_of_service">條款</a>
+                </li>
+                <li class="footer_item">
+                    <a href="/privacy">私隱</a>
+                </li>
+                <li class="footer_item">
+                    <a href="/jobs">工作</a>
+                </li>
+                <li class="footer_item">
+                    <a href="http://www.anobii.com/contact" class="last">聯絡</a>
+                </li>
+                <li class="footer_item_right">&copy; 2013 aNobii
+                    <select id="language_select" class="language_reselect" title="http://www.anobii.com/">
+                        <option value="1">English</option>
+                        <option value="2" selected="selected">繁體中文</option>
+                        <option value="3">简体中文</option>
+                        <option value="4">日本語</option>
+                        <option value="5">Français</option>
+                        <option value="6">Deutsch</option>
+                        <option value="7">Español</option>
+                        <option value="8">Português</option>
+                        <option value="9">한국어</option>
+                        <option value="10">Català</option>
+                        <option value="11">Italiano</option>
+                        <option value="13">РУССКИЙ</option>
+                        <option value="14">Nederlands</option>
+                        <option value="19">Svenska</option>
+                        <option value="22">Galego</option>
+                        <option value="23">Ελληνικά</option>
+                        <option value="26">Esperanto</option>
+                    </select>
+
+                </li>
+            </ul>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <script src="~/Scripts/knockout-2.2.1.js"></script>
+        @RenderSection("scripts", required: false)
+    </div>
 </body>
 </html>
