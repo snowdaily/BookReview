@@ -79,7 +79,7 @@ namespace BookReview.Controllers
                 // 嘗試註冊使用者
                 try
                 {
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password);
+                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, new { Name = model.Name });
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }

@@ -23,6 +23,8 @@ namespace BookReview
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js"));
 
+            //bundles.IgnoreList.Clear();
+
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/bootstrap-responsive.css"));
