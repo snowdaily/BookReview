@@ -3,17 +3,24 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - 我的 ASP.NET MVC 應用程式</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     @Styles.Render("~/Content/css")
-    @*<link href="../../Content/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="../../Content/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>*@
     @Styles.Render("~/Content/bootstrap")
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("head", required: false)
+    <style>
+        
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    
+    </style>
 </head>
 <body>
+    @*選單列*@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
@@ -24,14 +31,11 @@
                 </a>
                 <a class="brand" href="#">Logo</a>
                 <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
                     <ul class="nav pull-right">
+                        <li>@Html.ActionLink(Resources.Resource.SignUp,"Register","Account")</li>
+                        <li><a href="#login">@Resources.Resource.Login</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Language<b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Resources.Resource.Language<b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="#">中文</a></li>
                                 <li><a href="#">English</a></li>
@@ -43,154 +47,21 @@
             </div>
         </div>
     </div>
-    <div id="wrap">
-        @*<header>
-        <div class="content-wrapper">
-            <h3>@Resource.Resource.Title</h3>
-            <div class="float-left">
-                <p class="site-title">@Html.ActionLink("您標誌的位置", "Index", "Home")</p>
-            </div>
-            <div class="float-right">
-                <section id="login">
-                    @Html.Partial("_LoginPartial")
-                </section>
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("首頁", "Index", "Home")</li>
-                        <li>@Html.ActionLink("關於", "About", "Home")</li>
-                        <li>@Html.ActionLink("連絡", "Contact", "Home")</li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>*@
-
-        <div id="header">
-            <div id="header_logo" class="png_bg">
-                <a href="http://www.anobii.com">aNobii</a>
-            </div>
-
-            <div id="login" class="clearfix">
-                <div id="login_anobii" class="png_bg">
-                    <a href="https://www.anobii.com/login">登錄</a>
-                    | 
-                        <a href="https://www.anobii.com/sign_up">註冊帳號</a>
-                </div>
-
-                <div id="login_facebook" class="png_bg"></div>
-
-            </div>
-
-            <script type="text/javascript">
-                $j(document).ready(function () {
-                    $(window).bind('facebook.user.session', user);
-
-                    function user() {
-                        if (FBButtonClick) {
-                            if ($j.facebook.user.uid != '') {
-                                $j.ajax({
-                                    url: '/NewaNobii/aNobiiHome/live/account/facebook-connect',
-                                    success: function (data) {
-                                        if (data == '1') {
-                                            location.href = '/home';
-                                        } else {
-                                            location.href = '/sign_up';
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    }
-
-                    $j.facebook();
-                    $j('#login_facebook').facebook();
-                    $j('#login_facebook').facebook('show');
-                });
-
-            </script>
-
-            <div id="tagline">
-                <h2 id="tagline_title">Together we find better books</h2>
-            </div>
-
-        </div>
-        @*<div id="body">
-        @RenderSection("featured", required: false)
-        <section class="content-wrapper main-content clear-fix">*@
+    @*內容*@
+    <div class="container">
         @RenderBody()
-        @*</section>
     </div>
-    <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p>&copy; @DateTime.Now.Year - 我的 ASP.NET MVC 應用程式</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="inline">
+                <a href="#">書店地圖</a>
+                <a href="#">賣好書</a>
+                <a href="#">關於我們</a>
             </div>
         </div>
-    </footer>*@
-
-        <div id="footer">
-            <ul id="footer_links">
-                <li class="footer_item">
-                    <a href="http://twitter.com/anobii" id="footer_twitter">Twitter</a>
-                </li>
-                <li class="footer_item">
-                    <a href="http://www.facebook.com/aNobii" id="footer_facebook">Facebook</a>
-                </li>
-                <li class="footer_item">
-                    <a href="http://www.anobii.com/about">關於</a>
-                </li>
-                <li class="footer_item">
-                    <a href="http://www.anobii.com/translate_home">翻譯</a>
-                </li>
-                <li class="footer_item">
-                    <a href="http://www.anobii.com/api_home">開發者</a>
-                </li>
-                <li class="footer_item">
-                    <a href="http://blog.anobii.com/">Blog</a>
-                </li>
-                <li class="footer_item">
-                    <a href="http://www.anobii.com/help">說明</a>
-                </li>
-                <li class="footer_item">
-                    <a href="/terms_of_service">條款</a>
-                </li>
-                <li class="footer_item">
-                    <a href="/privacy">私隱</a>
-                </li>
-                <li class="footer_item">
-                    <a href="/jobs">工作</a>
-                </li>
-                <li class="footer_item">
-                    <a href="http://www.anobii.com/contact" class="last">聯絡</a>
-                </li>
-                <li class="footer_item_right">&copy; 2013 aNobii
-                        <select id="language_select" class="language_reselect" title="http://www.anobii.com/">
-                            <option value="1">English</option>
-                            <option value="2" selected="selected">繁體中文</option>
-                            <option value="3">简体中文</option>
-                            <option value="4">日本語</option>
-                            <option value="5">Français</option>
-                            <option value="6">Deutsch</option>
-                            <option value="7">Español</option>
-                            <option value="8">Português</option>
-                            <option value="9">한국어</option>
-                            <option value="10">Català</option>
-                            <option value="11">Italiano</option>
-                            <option value="13">РУССКИЙ</option>
-                            <option value="14">Nederlands</option>
-                            <option value="19">Svenska</option>
-                            <option value="22">Galego</option>
-                            <option value="23">Ελληνικά</option>
-                            <option value="26">Esperanto</option>
-                        </select>
-
-                </li>
-            </ul>
-        </div>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </div>
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", false)
 </body>
 </html>
