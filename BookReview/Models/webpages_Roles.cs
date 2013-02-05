@@ -20,7 +20,7 @@ namespace BookReview.Models
         {
             this.UserProfile = new HashSet<UserProfile>();
         }
-    
+
         [Key]
         public int RoleId { get; set; }
         public string RoleName { get; set; }

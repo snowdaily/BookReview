@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="UserProfile" EntityType="Model.Store.UserProfile" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_Membership" EntityType="Model.Store.webpages_Membership" store:Type="Tables" Schema="dbo" />
@@ -25,7 +25,8 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="nvarchar(max)" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="128" />
+          <Property Name="Name" Type="nvarchar" MaxLength="56" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -91,8 +92,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -111,8 +111,9 @@
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="UserName" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="webpages_Roles" Relationship="Model.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+          <Property Type="String" Name="Name" MaxLength="56" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -160,6 +161,7 @@
           <EntitySetMapping Name="UserProfile">
             <EntityTypeMapping TypeName="Model.UserProfile">
               <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
               </MappingFragment>
