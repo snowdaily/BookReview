@@ -6,7 +6,7 @@ using System.Data.Entity;
 using System.Globalization;
 using System.Web.Security;
 
-namespace BookReview.Models
+namespace BookReview.Models.ViewModels
 {
     public class UsersContext : DbContext
     {

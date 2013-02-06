@@ -1,4 +1,5 @@
-﻿@{
+﻿@model BookReview.Models.ViewModels.IndexModel
+@{
     ViewBag.Title = "aNobii";
 }
 
@@ -26,7 +27,16 @@
     </div>
 </div>
 
-
+<div class="row">
+    <div class="span8">
+        <ul>
+            @Html.DisplayFor(m => m.listBookBox)
+        </ul>
+    </div>
+    <div class="span4">
+        <h1>輪播/廣告/收藏最多</h1>
+    </div>
+</div>
 
 @section scripts
 {

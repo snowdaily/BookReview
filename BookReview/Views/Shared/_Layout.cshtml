@@ -12,12 +12,11 @@
     @Scripts.Render("~/bundles/modernizr")
     @RenderSection("head", required: false)
     <style>
-        
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    
+        body
+        {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
     </style>
 </head>
 <body>
@@ -30,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </a>
-                <a class="brand" href="#">Logo</a>
+                @Html.ActionLink("Logo", "Index", "Home", null, new { @class = "brand" })
                 <div class="nav-collapse collapse">
                     <ul class="nav pull-right">
                         <li>@Html.ActionLink(Resource.SignUp,"Register","Account")</li>
