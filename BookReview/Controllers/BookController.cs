@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using BookReview.Models;
 using BookReview.Models.ViewModels;
+using Domain;
 
 namespace BookReview.Controllers
 {

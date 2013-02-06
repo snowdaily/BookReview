@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BookReview.Models;
+using Domain;
 using BookReview.Models.TemplateModels;
 using BookReview.Models.ViewModels;
 
