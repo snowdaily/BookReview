@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -71,5 +73,28 @@ namespace BookReview.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public ActionResult ChangeLanguage(string language, string returnUrl)
+        {
+            if (string.IsNullOrWhiteSpace(language))
+                Response.AppendCookie(new HttpCookie("lang", language){ HttpOnly = true });
+
+            return RedirectToLocal(returnUrl);
+        }
+
+        #region Helper
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        #endregion
     }
 }
