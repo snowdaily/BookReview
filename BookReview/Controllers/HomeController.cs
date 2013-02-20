@@ -52,10 +52,10 @@ namespace BookReview.Controllers
 
             var listBookBox = _bookEntities.Books.OrderByDescending(b => b.UpdateDate).Take(10).ToList();
             var model = new HomeIndex();
-            model.listBookBox = new List<BookBox>();
+            model.ListBookBox = new List<BookBox>();
 
             Mapper.CreateMap<Books, BookBox>();
-            Mapper.Map(listBookBox, model.listBookBox);
+            Mapper.Map(listBookBox, model.ListBookBox);
 
             return View(model);
         }
@@ -77,7 +77,7 @@ namespace BookReview.Controllers
         [HttpGet]
         public ActionResult ChangeLanguage(string language, string returnUrl)
         {
-            if (string.IsNullOrWhiteSpace(language))
+            if (!string.IsNullOrWhiteSpace(language))
                 Response.AppendCookie(new HttpCookie("lang", language){ HttpOnly = true });
 
             return RedirectToLocal(returnUrl);
