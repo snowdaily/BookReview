@@ -25,5 +25,6 @@ namespace Domain
         public string Updater { get; set; }
         public Nullable<System.DateTime> PublishDate { get; set; }
         public string Publisher { get; set; }
+        public string ISBN { get; set; }
     }
 }

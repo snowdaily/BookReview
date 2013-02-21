@@ -12,6 +12,12 @@
 @section scripts
 {
     <script src="@Url.Content("~/Scripts/jquery.rateit.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+    <script>
+        function submitSuccess(context) {
+            $("#commont").before(context);
+        }
+    </script>
 }
 
 <h2>BookDetail</h2>
@@ -37,13 +43,6 @@
     <li><a href="#" title="收藏"><i class="icon-heart"></i>收藏</a></li>
     <li><a href="#" title="願望"><i class="icon-shopping-cart"></i>願望</a></li>
 </ul>
-
-<div class="row">
-    <input type="range" value="4" step="0.25" id="backing4">
-    <div class="rateit" data-rateit-backingfld="#backing4" data-rateit-resetable="false" data-rateit-ispreset="true"
-        data-rateit-min="0" data-rateit-max="10">
-    </div>
-</div>
 
 <dl id="commont">
     @Html.DisplayFor(m => m.ListBookComment)
