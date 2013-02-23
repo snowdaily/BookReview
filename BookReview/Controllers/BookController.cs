@@ -26,14 +26,14 @@ namespace BookReview.Controllers
             return View();
         }
 
-        public ActionResult AddComment(BookComment bookComment)
+        public ActionResult AddComment(BookCommentTemplateModel bookComment)
         {
             bookComment.CreateDate = DateTime.UtcNow;
             bookComment.Id = Guid.NewGuid();
 
             var comments = new Comments() { IsEnable = "1" };
 
-            Mapper.CreateMap<BookComment, Comments>();
+            Mapper.CreateMap<BookCommentTemplateModel, Comments>();
             Mapper.Map(bookComment, comments);
 
             _bookEntities.Comments.Add(comments);
@@ -53,13 +53,13 @@ namespace BookReview.Controllers
             Mapper.Map(book, model);
 
             var listComments = _bookEntities.Comments.Where(c => c.BookId.Equals(id)).OrderByDescending(c => c.CreateDate).ToList();
-            model.ListBookComment = new List<BookComment>();
+            model.ListBookComment = new List<BookCommentTemplateModel>();
 
-            Mapper.CreateMap<Comments, BookComment>();
+            Mapper.CreateMap<Comments, BookCommentTemplateModel>();
             Mapper.Map(listComments, model.ListBookComment);
 
             // Init book comment
-            model.BookComment = new BookComment() { BookId = id, CreaterId = User.Identity.IsAuthenticated ? ((UserProfile)_mainEntities.UserProfile.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name))).UserId : -1 };
+            model.BookComment = new BookCommentTemplateModel() { BookId = id, CreaterId = User.Identity.IsAuthenticated ? ((UserProfile)_mainEntities.UserProfile.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name))).UserId : -1 };
 
             //BookBookDetail model = new BookBookDetail()
             //    {
@@ -74,22 +74,37 @@ namespace BookReview.Controllers
         }
 
         [HttpPost]
-        public string SubmitComment(BookComment bookComment)
+        public string SubmitComment(BookCommentTemplateModel bookComment)
         {
             bookComment.CreateDate = DateTime.UtcNow;
             bookComment.Id = Guid.NewGuid();
 
             var comments = new Comments() { IsEnable = "1" };
 
-            Mapper.CreateMap<BookComment, Comments>();
+            Mapper.CreateMap<BookCommentTemplateModel, Comments>();
             Mapper.Map(bookComment, comments);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userProfile = _mainEntities.UserProfile.FirstOrDefault(u => u.UserName.Equals(User.Identity.Name));
+                if (userProfile != null)
+                {
+                    comments.CreaterId = userProfile.UserId;
+                    comments.Creater = string.IsNullOrWhiteSpace(userProfile.Name) ? "No Name" : userProfile.Name;
+                }
+            }
 
             _bookEntities.Comments.Add(comments);
             _bookEntities.SaveChanges();
 
             StringBuilder sb = new StringBuilder();
-            sb.Append(string.Format("<dt>{0}</dt>", bookComment.CreaterId == null ? "None" : bookComment.CreaterId.ToString()));
-            sb.Append(string.Format(@"<div class=""rateit"" data-rateit-value=""{0}"" data-rateit-ispreset=""true"" data-rateit-readonly=""true""></div>", bookComment.Rating));
+            sb.Append(string.Format("<dt>{0}</dt>", comments.CreaterId == null ? "None" : comments.Creater));
+            // Compute rating width
+            float ratingWidth = (float)((bookComment.Rating) * (80 / 5.0));
+            sb.Append(
+                string.Format(
+                    @"<div class=""rateit"" data-rateit-value=""{0}"" data-rateit-ispreset=""true"" data-rateit-readonly=""true""><div class=""rateit-reset"" style=""display: none;""></div><div class=""rateit-range"" style=""width: 80px; height: 16px;""><div class=""rateit-selected rateit-preset"" style=""height: 16px; width: {1}px;""></div><div class=""rateit-hover"" style=""height:16px""></div></div></div>",
+                    bookComment.Rating, ratingWidth));
             sb.Append(string.Format("<dd>{0}{1}</dd>", bookComment.CreateDate, bookComment.Content));
 
             return sb.ToString();

@@ -6,16 +6,15 @@
 
 @section head
 {
-    <link href="@Url.Content("~/Content/rateit.css")" rel="stylesheet"/>
 }
 
 @section scripts
 {
-    <script src="@Url.Content("~/Scripts/jquery.rateit.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
     <script>
         function submitSuccess(context) {
-            $("#commont").before(context);
+            $("#commont").prepend(context);
+            $("#backing").rateit('value', prompt(0));
+            $("#BookComment_Content").val("");
         }
     </script>
 }
@@ -48,7 +47,7 @@
     @Html.DisplayFor(m => m.ListBookComment)
 </dl>
 
-@using (Html.BeginForm("AddComment", "Book", FormMethod.Post))
+@using (Ajax.BeginForm("SubmitComment", "Book", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "submitSuccess" }))
 {
     @Html.EditorFor(m => m.BookComment)
 }

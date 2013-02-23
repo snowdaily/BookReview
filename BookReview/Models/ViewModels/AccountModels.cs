@@ -99,4 +99,15 @@ namespace BookReview.Models.ViewModels
         public string ProviderDisplayName { get; set; }
         public string ProviderUserId { get; set; }
     }
+
+    public class MemberInfomation
+    {
+        [Required]
+        [Display(Name = "使用者名稱")]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "暱稱")]
+        public string Name { get; set; }
+    }
 }

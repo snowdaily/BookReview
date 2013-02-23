@@ -25,6 +25,8 @@
           <Property Name="PublishDate" Type="datetime" />
           <Property Name="Publisher" Type="nvarchar" MaxLength="200" />
           <Property Name="ISBN" Type="nvarchar" MaxLength="13" />
+          <Property Name="Classification" Type="uniqueidentifier" />
+          <Property Name="ImagePath" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -63,6 +65,8 @@
           <Property Type="DateTime" Name="PublishDate" Precision="3" />
           <Property Type="String" Name="Publisher" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ISBN" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="Classification" />
+          <Property Type="String" Name="ImagePath" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -86,6 +90,8 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="BookReviewModel.Books">
               <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="Classification" ColumnName="Classification" />
                 <ScalarProperty Name="ISBN" ColumnName="ISBN" />
                 <ScalarProperty Name="Publisher" ColumnName="Publisher" />
                 <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
