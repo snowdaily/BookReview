@@ -28,5 +28,8 @@ namespace Domain
         public string ISBN { get; set; }
         public Nullable<System.Guid> Classification { get; set; }
         public string ImagePath { get; set; }
+        public Nullable<int> Price { get; set; }
+        public string Language { get; set; }
+        public string Binding { get; set; }
     }
 }
